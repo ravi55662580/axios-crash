@@ -1,9 +1,23 @@
-var listItems = document.getElementsByClassName("list-group-item");
+var ulElement = document.getElementById("items");
 
-  if (listItems.length >= 3) {
-    listItems[2].style.backgroundColor = "green";
+var newLiElement = document.createElement("li");
+
+newLiElement.textContent = "New Item";
+
+newLiElement.classList.add("editable-item");
+
+ulElement.appendChild(newLiElement);
+
+var editableItems = document.getElementsByClassName("editable-item");
+
+  if (editableItems.length > 0) {
+    editableItems[0].style.fontWeight = "bold";
+    editableItems[0].style.color = "green";
   }
-  for (var i = 0; i < listItems.length; i++) {
-    // Apply the bold font and colored font to each element
-    listItems[i].style.fontWeight = "bold";
+
+  var liElements = ulElement.getElementsByTagName("li");
+
+  if (liElements.length > 0) {
+    liElements[liElements.length - 1].style.fontWeight = "bold";
+    liElements[liElements.length - 1].style.color = "blue";
   }

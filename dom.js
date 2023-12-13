@@ -1,53 +1,43 @@
-// Get the parent element
-var mainDiv = document.getElementById("main");
 
-// Create a new text node with "Hello"
-var helloTextNode = document.createTextNode("Hello ");
 
-// Insert the text node before "Item Lister"
-mainDiv.firstElementChild.insertBefore(helloTextNode, mainDiv.firstElementChild.lastChild.previousElementSibling);
+document.addEventListener('DOMContentLoaded', function () {
+    var deleteButtons = document.querySelectorAll('.delete');
 
-// Access the last child element
-var lastChild = mainDiv.lastElementChild;
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var listItem = this.parentElement;
+            listItem.parentNode.removeChild(listItem);
+        });
+    });
 
-// Access the last child element using lastChild
-var lastChildAlt = mainDiv.lastChild;
+    var addForm = document.getElementById('addForm');
+    addForm.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-// Get the <ul> element with the ID 'items'
-var itemsList = document.getElementById("items");
+        var newItemValue = document.getElementById('item').value;
+        var newListItem = document.createElement('li');
+        newListItem.className = 'list-group-item';
+        newListItem.textContent = newItemValue;
 
-// Get the first <li> element
-var firstListItem = itemsList.firstElementChild;
+        // Create a delete button
+        var deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger btn-sm float-right delete';
+        deleteButton.textContent = 'X';
+        deleteButton.addEventListener('click', function () {
+            var listItem = this.parentElement;
+            listItem.parentNode.removeChild(listItem);
+        });
 
-// Create a new text node with "Hello"
-var helloTextNode2 = document.createTextNode("Hello ");
+        // Create an edit button (no functionality added)
+        var editButton = document.createElement('button');
+        editButton.className = 'btn btn-info btn-sm float-right ml-2 edit';
+        editButton.textContent = 'Edit';
 
-// Insert the text node before "Item 1"
-itemsList.insertBefore(helloTextNode2, firstListItem);
+        // Append delete and edit buttons to the new <li> element
+        newListItem.appendChild(deleteButton);
+        newListItem.appendChild(editButton);
 
-// Access the next sibling of "Item 1"
-var nextSibling = firstListItem.nextSibling;
-
-// Access the next sibling element of "Item 1"
-var nextElementSibling = firstListItem.nextElementSibling;
-
-// Access the previous sibling of "Item 1"
-var previousSibling = firstListItem.previousSibling;
-
-// Access the previous sibling element of "Item 1"
-var previousElementSibling = firstListItem.previousElementSibling;
-
-// Create a new element
-var newElement = document.createElement("li");
-
-// Set an attribute on the new element
-newElement.setAttribute("class", "list-group-item");
-
-// Create a new text node for the new element
-var newText = document.createTextNode("New Item");
-
-// Append the text node to the new element
-newElement.appendChild(newText);
-
-// Append the new element to the existing list
-itemsList.appendChild(newElement);
+        document.getElementById('items').appendChild(newListItem);
+        document.getElementById('item').value = '';
+    });
+});

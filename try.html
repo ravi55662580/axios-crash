@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="try css.css">
+
+    </style>
+</head>
+<body>
+    <h1>Expense Tracker</h1>
+    
+    <form id="expenseForm">
+        <input type="number" placeholder="Amount" id="expenseAmount" required>
+        <input type="text" placeholder="Description" id="expenseDescription" required>
+        <select id="expenseCategory" placeholder="Category" required>
+            <option value="groceries">Groceries</option>
+            <option value="utilities">Utilities</option>
+            <option value="entertainment">Entertainment</option>
+            <!-- Add more categories as needed -->
+        </select>
+        <button type="button" onclick="addExpense()">Add Expense</button>
+    </form>
+
+    <ul id="expensesList"></ul>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="try.js"></script>
+
+    
+</body>
+</html>

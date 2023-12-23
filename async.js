@@ -1,71 +1,131 @@
+console.log('person1 shows ticket');
+console.log('person2 shows ticket');
 
-const posts =[
-    {tittle:'Post One', body:'This is post one'},
-    {tittle:'Post Two', body:'This is post two'}
-];
-let lastActivityTime = null;
-
-function updateLastUserActivityTime() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            lastActivityTime = new Date().toISOString();
-            console.log(`Last activity time updated: ${lastActivityTime}`);
-            resolve(lastActivityTime);
-        }, 1000);
+const preMovieAsyncAwait = async () => {
+  try {
+    const person3PromiseToShowTicketWhenWifeArrives = new Promise((resolve) => {
+      setTimeout(() => resolve('ticket'), 3000);
     });
-}
-function getPosts(){
-    setTimeout(()=>{
-        let output='';
-        posts.forEach((post,index)=> {
-            output += `<li>${post.tittle}</li>`;
-        });
-        document.body.innerHTML=output;
-    
-    },1000)
-}
-function createPost(post){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            posts.push(post);
-            const error = true;
 
-            if (!error){
-                resolve();
-            }else{
-                reject('Error:Something went wrong')
-            }
-        
-        }, 2000);
-     })
-}
-function deletePost() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const deletedPost = posts.pop();
-            console.log(`Post deleted: ${JSON.stringify(deletedPost)}`);
-            resolve(posts);
-        }, 1000);
+    const getPopcorn = new Promise((resolve) => {
+      setTimeout(() => resolve('popcorn'), 3000);
     });
-}
- 
-//createPost({tittle:'Post Three', body : 'This is post three'})
-    //.then(getPosts)
-   // .catch(error => console.log(error))
 
+    const addButter = new Promise((resolve) => {
+      setTimeout(() => resolve('butter'), 3000);
+    });
 
-Promise.all([
-    createPost({ title: 'Post Three', body: 'This is post three' }),
-    updateLastUserActivityTime()
-])
-    .then(([updatedPosts, updatedLastActivityTime]) => {
-        console.log(`User's Last Activity Time: ${updatedLastActivityTime}`);
-        console.log('All Posts:', updatedPosts);
-        return deletePost();
+    const getColdDrinks = new Promise((resolve) => {
+      setTimeout(() => resolve('cold drinks'), 2000);
+    });
+
+    let ticket = await person3PromiseToShowTicketWhenWifeArrives;
+
+    console.log(`got the ${ticket}`);
+    console.log(`Husband: we should go in now`);
+    console.log(`Wife: "I am hungry"`);
+
+    let popcorn = await getPopcorn;
+    console.log(`Husband: here is ${popcorn}`);
+    console.log(`Husband: we should go in now`);
+    console.log(`Wife: "I don't like popcorn without butter!"`);
+
+    let butter = await addButter;
+    console.log(`added ${butter}`);
+
+    let coldDrinks = await getColdDrinks;
+    console.log(`got the ${coldDrinks}`);
+
+    console.log(`Husband: Anything else darling`);
+    console.log(`Wife: let's go, we are going to miss the preview`);
+    console.log(`Husband: thanks for the reminder *grin*`);
+
+    return ticket;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+const preMoviePromise = () => {
+  const person3PromiseToShowTicketWhenWifeArrives = new Promise((resolve) => {
+    setTimeout(() => resolve('ticket'), 3000);
+  });
+
+  const getPopcorn = new Promise((resolve) => {
+    setTimeout(() => resolve('popcorn'), 3000);
+  });
+
+  const addButter = new Promise((resolve) => {
+    setTimeout(() => resolve('butter'), 3000);
+  });
+
+  const getColdDrinks = new Promise((resolve) => {
+    setTimeout(() => resolve('cold drinks'), 2000);
+  });
+
+  return person3PromiseToShowTicketWhenWifeArrives
+    .then((ticket) => {
+      console.log(`got the ${ticket}`);
+      console.log(`Husband: we should go in now`);
+      console.log(`Wife: "I am hungry"`);
+
+      return getPopcorn;
     })
-    .then((remainingPosts) => {
-        console.log('Remaining Posts:', remainingPosts);
+    .then((popcorn) => {
+      console.log(`Husband: here is ${popcorn}`);
+      console.log(`Husband: we should go in now`);
+      console.log(`Wife: "I don't like popcorn without butter!"`);
+
+      return addButter;
+    })
+    .then((butter) => {
+      console.log(`added ${butter}`);
+
+      return getColdDrinks;
+    })
+    .then((coldDrinks) => {
+      console.log(`got the ${coldDrinks}`);
+
+      console.log(`Husband: Anything else darling`);
+      console.log(`Wife: let's go, we are going to miss the preview`);
+      console.log(`Husband: thanks for the reminder *grin*`);
     })
     .catch((error) => {
-        console.error(error);
+      console.error('Error:', error);
     });
+};
+
+// Use async/await with Promise.all
+const handlePreMovieAsyncAwait = async () => {
+  try {
+    const [result1, result2] = await Promise.all([
+      preMovieAsyncAwait(),
+      updateLastUserActivityTime(),
+    ]);
+
+    console.log('Result 1:', result1);
+    console.log('Result 2:', result2);
+
+    // Continue with other operations...
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Use promises with Promise.all
+const handlePreMoviePromise = () => {
+  Promise.all([preMoviePromise(), updateLastUserActivityTime()])
+    .then(([result1, result2]) => {
+      console.log('Result 1:', result1);
+      console.log('Result 2:', result2);
+
+      // Continue with other operations...
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+};
+
+// Example usage
+handlePreMovieAsyncAwait();
+handlePreMoviePromise();
